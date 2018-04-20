@@ -48,25 +48,26 @@ class Team(models.Model):
 
 
 class Comment(models.Model):
-    case = models.IntegerField()
-    # case = models.ForeignKey('cases.Case', blank=True, null=True, related_name="cases", on_delete=models.CASCADE)
+    # case = models.IntegerField()
+    case = models.ForeignKey('cases.Case', blank=True, null=True, related_name="cases", on_delete=models.CASCADE)
     comment = models.CharField(max_length=255)
     commented_on = models.DateTimeField(auto_now_add=True)
     commented_by = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
-    account =  models.CharField(max_length=255)
-    lead = models.CharField(max_length=255)
-    opportunity = models.CharField(max_length=255)
-    contact = models.CharField(max_length=255)
-    # account = models.ForeignKey('accounts.Account', blank=True, null=True, related_name="accounts_comments", on_delete=models.CASCADE)
-    # lead = models.ForeignKey('leads.Lead', blank=True, null=True, related_name="leads", on_delete=models.CASCADE)
-    # opportunity = models.ForeignKey('opportunity.Opportunity', blank=True, null=True, related_name="opportunity_comments", on_delete=models.CASCADE)
-    # contact = models.ForeignKey('contacts.Contact', blank=True, null=True, related_name="contact_comments", on_delete=models.CASCADE)
+    # account =  models.CharField(max_length=255)
+    # lead = models.CharField(max_length=255)
+    # opportunity = models.CharField(max_length=255)
+    # contact = models.CharField(max_length=255)
+    account = models.ForeignKey('accounts.Account', blank=True, null=True, related_name="accounts_comments", on_delete=models.CASCADE)
+    lead = models.ForeignKey('leads.Lead', blank=True, null=True, related_name="leads", on_delete=models.CASCADE)
+    opportunity = models.ForeignKey('opportunity.Opportunity', blank=True, null=True, related_name="opportunity_comments", on_delete=models.CASCADE)
+    contact = models.ForeignKey('contacts.Contact', blank=True, null=True, related_name="contact_comments", on_delete=models.CASCADE)
 
     def get_files(self):
         return Comment_Files.objects.filter(comment_id=self)
 
 
 class Comment_Files(models.Model):
+    # comment = models.IntegerField()
     comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
     updated_on = models.DateTimeField(auto_now_add=True)
     comment_file = models.FileField("File", upload_to="comment_files", default='')
