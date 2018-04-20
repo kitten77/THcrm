@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'emails',
     'accounts',
     'contacts',
+    'leads',
     'simple_pagination',
     'compressor'
 ]
@@ -45,7 +46,6 @@ INSTALLED_APPS = [
 #'planner',
 #'opportunity',
 #'accounts',
-#'leads',
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
