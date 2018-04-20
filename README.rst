@@ -1,7 +1,7 @@
-Django-CRM
-==========
+The Handy - CRM
+===============
 
-Django-CRM provides a Customer relationship management dashboard where you can manage customers at
+The Handy - CRM provides a Customer relationship management dashboard where you can manage customers at
 sales of the organization. It Provides to manage leads information and its activity,
 track issues from leads, manage contacts to send emails of their progress.
 

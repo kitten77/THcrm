@@ -66,7 +66,7 @@
           <div class="card-body">
             <div class="card-title list">
               List of Users
-              <span class="float-right total_count">{% if show_pageitems %} {% show_pageitems %}{% else %}Total Users {{ users|length }}{% endif %}</span>
+              <span class="float-right total_count">Total Users {{ object_list|length }}</span>
             </div>
             <div class="table-responsive ">
               <table class="table table-bordered table-striped table-condensed">
@@ -81,9 +81,9 @@
                   </tr>
                 </thead>
                 <tbody>
-                  {% for user in users %}
+                  {% for user in object_list %}
                   <tr class="text-center">
-                    <td>{{ forloop.counter }}</td>
+                    <td>{{ user.pk }}</td>
                     <td>{{ user.first_name }} {{ user.last_name }}</td>
                     <td>{{ user.username }}</td>
                     <td>{{ user.email }}</td>
@@ -105,7 +105,7 @@
                 </tbody>
               </table>
             </div>
-            {% ifequal users|length 0 %}
+            {% ifequal object_list|length 0 %}
               <h6 class="text-center">No User Records Found</h6>
             {% endifequal %}
             <div class="container">

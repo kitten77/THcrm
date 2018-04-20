@@ -92,9 +92,11 @@ class UserList(ListView):
     """
     model = User
     template_name = 'user/user_list.html'  # Default: <app_label>/<model_name>_list.html
-    context_object_name = 'users'  # Default: object_list
+    # context_object_name = 'users'  # Default: object_list
     paginate_by = 10
-    queryset = User.objects.all()  # Default: Model.objects.all()
+    queryset = User.objects.get_queryset().order_by('id')
+    #.objects.all()  # Default: Model.objects.all()
+    print(queryset)
 
 class UserView(View):
     """

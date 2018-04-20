@@ -1,10 +1,11 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.contrib.auth import authenticate
+from django.contrib.auth.models import User
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.forms import PasswordChangeForm
 #from common.models import User
-from .models import User
+# from .models import User
 
 class PasswordForm(forms.Form):
     #TODO will need to write a bigger policy on passwords
@@ -66,6 +67,7 @@ class LoginForm(forms.ModelForm):
             else:
                 raise ValidationError('Invalid email and password')
 
+
 class UserForm(forms.ModelForm):
     # password = forms.CharField(max_length=100, required=True)
     required_css_class = 'required'
@@ -99,3 +101,8 @@ class UserForm(forms.ModelForm):
                     return self.cleaned_data.get("email")
             else:
                 raise forms.ValidationError('User already exists with this email')
+
+class UserProfile(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('bio', 'location', 'birth_date')
