@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.test import Client
-from common.models import User
+from django.contrib.auth.models import User
+
 
 
 class ObjectsCreation(object):

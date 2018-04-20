@@ -1,11 +1,12 @@
 from django.shortcuts import render, get_object_or_404, redirect, HttpResponseRedirect, reverse
 from django.http import JsonResponse, HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.db.models import Q
 
 from cases.models import Case
 from cases.forms import CaseForm, CaseCommentForm
-from common.models import Team, User, Comment
+from common.models import Team, Comment
 from accounts.models import Account
 from contacts.models import Contact
 from common.utils import PRIORITY_CHOICE, STATUS_CHOICE, CASE_TYPE

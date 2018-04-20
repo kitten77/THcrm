@@ -1,7 +1,8 @@
 from django.test import TestCase
 from contacts.models import Contact
 from accounts.models import Account
-from common.models import Address, User
+from django.contrib.auth.models import User
+from common.models import Address
 from django.test import Client
 from django.urls import reverse
 

@@ -5,10 +5,11 @@ from django.urls import reverse
 from django.db.models import Q
 from django.views.decorators.csrf import csrf_exempt
 from django.forms.models import modelformset_factory
+from django.contrib.auth.models import User
 
 from leads.models import Lead
 from contacts.forms import ContactForm
-from common.models import User, Address, Comment, Team
+from common.models import Address, Comment, Team
 from common.utils import LEAD_STATUS, LEAD_SOURCE, INDCHOICES, TYPECHOICES, COUNTRIES
 from leads.forms import LeadCommentForm, LeadForm
 from accounts.forms import AccountForm

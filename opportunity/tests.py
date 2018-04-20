@@ -1,9 +1,9 @@
 from django.test import TestCase
+from django.contrib.auth.models import User
 from opportunity.models import Opportunity
 from common.models import Address
 from accounts.models import Account
 from contacts.models import Contact
-from common.models import User
 
 # Create your tests here.
 

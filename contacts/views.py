@@ -2,8 +2,9 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+from django.contrib.auth.models import User
 
-from common.models import User, Address, Comment, Team
+from common.models import Address, Comment, Team
 from common.forms import BillingAddressForm
 from common.utils import COUNTRIES
 from accounts.models import Account

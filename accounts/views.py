@@ -2,7 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
 from accounts.models import Account
-from common.models import User, Address, Team, Comment
+from django.contrib.auth.models import User
+from common.models import Address, Team, Comment
 from common.utils import INDCHOICES, COUNTRIES, CURRENCY_CODES, CASE_TYPE, PRIORITY_CHOICE, STATUS_CHOICE
 from opportunity.models import Opportunity, STAGES, SOURCES
 from contacts.models import Contact

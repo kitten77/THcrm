@@ -2,10 +2,11 @@ from django.db import models
 from django.utils.translation import pgettext_lazy
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.auth.models import User
 
 from accounts.models import Account
 from contacts.models import Contact
-from common.models import User, Team
+from common.models import Team
 from common.utils import CASE_TYPE, PRIORITY_CHOICE, STATUS_CHOICE
 
 

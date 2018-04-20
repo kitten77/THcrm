@@ -1,7 +1,8 @@
 from django.test import TestCase
 from common.models import *
 from accounts.models import Account
-from common.models import User
+from django.contrib.auth.models import User
+
 
 
 # Create your tests here.
