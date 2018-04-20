@@ -8,6 +8,15 @@ from django.dispatch import receiver
 from django.db import models
 from django.contrib.auth.models import User
 
+# class customUser(AbstractUser):
+#     """User model."""
+#
+#     username = None
+#     email = models.EmailField(_('email address'), unique=True)
+#
+#     USERNAME_FIELD = 'email'
+#     REQUIRED_FIELDS = []
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(max_length=500, blank=True)

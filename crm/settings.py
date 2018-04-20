@@ -45,7 +45,7 @@ INSTALLED_APPS = [
 ]
 
 #'planner',
-#'accounts',
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

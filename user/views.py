@@ -35,7 +35,7 @@ class UserLogin(View):
     def post(self, request):
         bound_form = self.form_class(request.POST, request=request)
         if bound_form.is_valid():
-            user = auth_authenticate(username=request.POST.get('email'), password=request.POST.get('password'))
+            user = auth_authenticate(username=request.POST.get('username'), password=request.POST.get('password'))
             auth_login(request, user)
             return HttpResponseRedirect('/')
         # else:

@@ -15,8 +15,8 @@ from leads.forms import LeadCommentForm, LeadForm
 from accounts.forms import AccountForm
 from common.forms import BillingAddressForm
 from accounts.models import Account
-from planner.models import Event, Reminder
-from planner.forms import ReminderForm
+# from planner.models import Event, Reminder
+# from planner.forms import ReminderForm
 
 # CRUD Operations Start
 
@@ -99,7 +99,7 @@ def view_lead(request, lead_id):
                                     event_type='Meeting', attendees_leads=lead_record).order_by('-id')
     calls = Event.objects.filter(Q(created_by=request.user) | Q(updated_by=request.user),
                                  event_type='Call', attendees_leads=lead_record).order_by('-id')
-    RemindersFormSet = modelformset_factory(Reminder, form=ReminderForm, can_delete=True)
+    # RemindersFormSet = modelformset_factory(Reminder, form=ReminderForm, can_delete=True)
     data = {
         'form-TOTAL_FORMS': '1',
         'form-INITIAL_FORMS': '0',
