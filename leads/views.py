@@ -5,17 +5,18 @@ from django.urls import reverse
 from django.db.models import Q
 from django.views.decorators.csrf import csrf_exempt
 from django.forms.models import modelformset_factory
+from django.contrib.auth.models import User
 
 from leads.models import Lead
 from contacts.forms import ContactForm
-from common.models import User, Address, Comment, Team
+from common.models import Address, Comment, Team
 from common.utils import LEAD_STATUS, LEAD_SOURCE, INDCHOICES, TYPECHOICES, COUNTRIES
 from leads.forms import LeadCommentForm, LeadForm
 from accounts.forms import AccountForm
 from common.forms import BillingAddressForm
 from accounts.models import Account
-from planner.models import Event, Reminder
-from planner.forms import ReminderForm
+# from planner.models import Event, Reminder
+# from planner.forms import ReminderForm
 
 # CRUD Operations Start
 
@@ -98,7 +99,7 @@ def view_lead(request, lead_id):
                                     event_type='Meeting', attendees_leads=lead_record).order_by('-id')
     calls = Event.objects.filter(Q(created_by=request.user) | Q(updated_by=request.user),
                                  event_type='Call', attendees_leads=lead_record).order_by('-id')
-    RemindersFormSet = modelformset_factory(Reminder, form=ReminderForm, can_delete=True)
+    # RemindersFormSet = modelformset_factory(Reminder, form=ReminderForm, can_delete=True)
     data = {
         'form-TOTAL_FORMS': '1',
         'form-INITIAL_FORMS': '0',

@@ -3,8 +3,8 @@ from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
-
-from common.models import User, Comment, Team
+from django.contrib.auth.models import User
+from common.models import Comment, Team
 from common.utils import STAGES, SOURCES, CURRENCY_CODES
 from accounts.models import Account
 from contacts.models import Contact

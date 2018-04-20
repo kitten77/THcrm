@@ -2,7 +2,8 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 from accounts.models import Account
-from common.models import Address, User, Team
+from django.contrib.auth.models import User
+from common.models import Address, Team
 
 
 class Contact(models.Model):
@@ -13,7 +14,9 @@ class Contact(models.Model):
     phone = models.CharField(max_length=20)
     address = models.ForeignKey(Address, related_name='adress_contacts', on_delete=models.CASCADE, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
+    assigned_to = models.IntegerField()
     assigned_to = models.ManyToManyField(User, related_name='contact_assigned_users')
+    teams = models.IntegerField()
     teams = models.ManyToManyField(Team)
     created_by = models.ForeignKey(User, related_name='contact_created_by', on_delete=models.CASCADE)
     created_on = models.DateTimeField(_("Created on"), auto_now_add=True)

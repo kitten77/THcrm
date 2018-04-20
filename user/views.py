@@ -9,7 +9,8 @@ from django.contrib.auth import logout as auth_logout, authenticate as auth_auth
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.views.generic import View, ListView
-from .models import User
+from django.contrib.auth.models import User
+# from .models import Profile
 from .forms import LoginForm, UserForm, PasswordForm, ResetPassForm
 # from .models import User
 
@@ -34,7 +35,7 @@ class UserLogin(View):
     def post(self, request):
         bound_form = self.form_class(request.POST, request=request)
         if bound_form.is_valid():
-            user = auth_authenticate(username=request.POST.get('email'), password=request.POST.get('password'))
+            user = auth_authenticate(username=request.POST.get('username'), password=request.POST.get('password'))
             auth_login(request, user)
             return HttpResponseRedirect('/')
         # else:
@@ -92,9 +93,11 @@ class UserList(ListView):
     """
     model = User
     template_name = 'user/user_list.html'  # Default: <app_label>/<model_name>_list.html
-    context_object_name = 'users'  # Default: object_list
+    # context_object_name = 'users'  # Default: object_list
     paginate_by = 10
-    queryset = User.objects.all()  # Default: Model.objects.all()
+    queryset = User.objects.get_queryset().order_by('id')
+    #.objects.all()  # Default: Model.objects.all()
+    # print(queryset)
 
 class UserView(View):
     """

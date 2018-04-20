@@ -34,16 +34,18 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'user',
     'common',
-    'accounts',
     'cases',
-    'contacts',
     'emails',
-    'leads',
+    'accounts',
+    'contacts',
     'opportunity',
-    'planner',
+    'leads',
     'simple_pagination',
     'compressor'
 ]
+
+#'planner',
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -54,7 +56,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
+#user common accounts contacts cases leads opportunity emails planner
 ROOT_URLCONF = 'crm.urls'
 
 TEMPLATES = [
@@ -176,7 +178,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-AUTH_USER_MODEL = 'user.User'
+#AUTH_USER_MODEL = 'user.User'
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (BASE_DIR + '/static',)

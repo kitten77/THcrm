@@ -1,6 +1,7 @@
 from django.test import TestCase, Client
 from leads.models import Lead
-from common.models import Address, User
+from django.contrib.auth.models import User
+from common.models import Address
 from accounts.models import Account
 
 
