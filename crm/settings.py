@@ -35,11 +35,11 @@ INSTALLED_APPS = [
     'user',
     'common',
     'accounts',
-    'cases',
     'contacts',
-    'emails',
+    'cases',
     'leads',
     'opportunity',
+    'emails',
     'planner',
     'simple_pagination',
     'compressor'

@@ -4,29 +4,6 @@ from django.contrib.auth.models import User
 # from user.models import User
 from common.utils import COUNTRIES
 
-
-# class User(AbstractBaseUser, PermissionsMixin):
-#     username = models.CharField(max_length=100, unique=True)
-#     first_name = models.CharField(max_length=150, blank=True)
-#     last_name = models.CharField(max_length=150, blank=True)
-#     email = models.EmailField(max_length=255, unique=True)
-#     is_active = models.BooleanField(default=True)
-#     is_admin = models.BooleanField(default=False)
-#     is_staff = models.BooleanField(default=False)
-#     date_joined = models.DateTimeField(('date joined'), auto_now_add=True)
-#
-#     USERNAME_FIELD = 'email'
-#     REQUIRED_FIELDS = ['username', ]
-#
-#     objects = UserManager()
-#
-#     def get_short_name(self):
-#         return self.username
-#
-#     def __unicode__(self):
-#         return self.email
-
-
 class Address(models.Model):
     address_line = models.CharField(_("Address"), max_length=255, blank=True, null=True)
     street = models.CharField(_("Street"), max_length=55, blank=True, null=True)
@@ -55,11 +32,11 @@ class Comment(models.Model):
     commented_by = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     # account =  models.CharField(max_length=255)
     # lead = models.CharField(max_length=255)
-    # opportunity = models.CharField(max_length=255)
+    opportunity = models.CharField(max_length=255)
     # contact = models.CharField(max_length=255)
     account = models.ForeignKey('accounts.Account', blank=True, null=True, related_name="accounts_comments", on_delete=models.CASCADE)
     lead = models.ForeignKey('leads.Lead', blank=True, null=True, related_name="leads", on_delete=models.CASCADE)
-    opportunity = models.ForeignKey('opportunity.Opportunity', blank=True, null=True, related_name="opportunity_comments", on_delete=models.CASCADE)
+    # opportunity = models.ForeignKey('opportunity.Opportunity', blank=True, null=True, related_name="opportunity_comments", on_delete=models.CASCADE)
     contact = models.ForeignKey('contacts.Contact', blank=True, null=True, related_name="contact_comments", on_delete=models.CASCADE)
 
     def get_files(self):
@@ -67,8 +44,8 @@ class Comment(models.Model):
 
 
 class Comment_Files(models.Model):
-    # comment = models.IntegerField()
-    comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
+    comment = models.IntegerField()
+    # comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
     updated_on = models.DateTimeField(auto_now_add=True)
     comment_file = models.FileField("File", upload_to="comment_files", default='')
 
