@@ -7,8 +7,8 @@ from django.db.models import Q
 from cases.models import Case
 from cases.forms import CaseForm, CaseCommentForm
 from common.models import Team, Comment
-from accounts.models import Account
-from contacts.models import Contact
+# from accounts.models import Account
+# from contacts.models import Contact
 from common.utils import PRIORITY_CHOICE, STATUS_CHOICE, CASE_TYPE
 
 # CRUD Operations Start

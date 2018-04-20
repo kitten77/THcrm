@@ -34,17 +34,17 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'user',
     'common',
-    'accounts',
-    'contacts',
     'cases',
-    'leads',
-    'opportunity',
     'emails',
-    'planner',
     'simple_pagination',
     'compressor'
 ]
 
+#'planner',
+#'opportunity',
+#'accounts',
+#'leads',
+#'contacts',
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -54,7 +54,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
+#user common accounts contacts cases leads opportunity emails planner
 ROOT_URLCONF = 'crm.urls'
 
 TEMPLATES = [
