@@ -15,11 +15,10 @@ class Contact(models.Model):
     address = models.ForeignKey(Address, related_name='adress_contacts', on_delete=models.CASCADE, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     assigned_to = models.IntegerField()
-    # assigned_to = models.ManyToManyField(User, related_name='contact_assigned_users')
+    assigned_to = models.ManyToManyField(User, related_name='contact_assigned_users')
     teams = models.IntegerField()
     teams = models.ManyToManyField(Team)
-    created_by = models.IntegerField()
-    # created_by = models.ForeignKey(User, related_name='contact_created_by', on_delete=models.CASCADE)
+    created_by = models.ForeignKey(User, related_name='contact_created_by', on_delete=models.CASCADE)
     created_on = models.DateTimeField(_("Created on"), auto_now_add=True)
     is_active = models.BooleanField(default=False)
 
