@@ -1,3 +1,4 @@
+from django.urls import reverse
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
@@ -23,16 +24,16 @@ class Profile(models.Model):
         """
         returns a reverse url for user view
         """
-        return reverse('user:view', kwargs={'user_id': self.user})
+        return reverse('user:view', kwargs={'user_id': self.user.pk})
 
     def get_update_url(self):
         """
         returns a reverse url for updating user pk
         """
-        return reverse('user:update', kwargs={'user_id': self.user})
+        return reverse('user:update', kwargs={'user_id': self.user.pk})
 
     def get_short_name(self):
-        return self.username
+        return self.user.username
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
