@@ -10,7 +10,7 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.views.generic import View, ListView
 from django.contrib.auth.models import User
-from .models import Profile
+# from .models import Profile
 from .forms import LoginForm, UserForm, PasswordForm, ResetPassForm
 # from .models import User
 
