@@ -1,8 +1,8 @@
 from django.db import models
 from django.utils.translation import pgettext_lazy
 from django.utils.translation import ugettext_lazy as _
-
-from common.models import User, Address, Team
+from django.contrib.auth.models import User
+from common.models import Address, Team
 from common.utils import INDCHOICES
 
 

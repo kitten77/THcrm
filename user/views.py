@@ -9,7 +9,8 @@ from django.contrib.auth import logout as auth_logout, authenticate as auth_auth
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.views.generic import View, ListView
-from .models import User
+from django.contrib.auth.models import User
+from .models import Profile
 from .forms import LoginForm, UserForm, PasswordForm, ResetPassForm
 # from .models import User
 
@@ -96,7 +97,7 @@ class UserList(ListView):
     paginate_by = 10
     queryset = User.objects.get_queryset().order_by('id')
     #.objects.all()  # Default: Model.objects.all()
-    print(queryset)
+    # print(queryset)
 
 class UserView(View):
     """
