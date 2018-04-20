@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'cases',
     'emails',
     'accounts',
+    'contacts',
     'simple_pagination',
     'compressor'
 ]
@@ -45,7 +46,6 @@ INSTALLED_APPS = [
 #'opportunity',
 #'accounts',
 #'leads',
-#'contacts',
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

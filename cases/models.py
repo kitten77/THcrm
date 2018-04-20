@@ -5,7 +5,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import User
 
 from accounts.models import Account
-# from contacts.models import Contact
+from contacts.models import Contact
 from common.models import Team
 from common.utils import CASE_TYPE, PRIORITY_CHOICE, STATUS_CHOICE
 
@@ -15,10 +15,9 @@ class Case(models.Model):
     status = models.CharField(choices=STATUS_CHOICE, max_length=64)
     priority = models.CharField(choices=PRIORITY_CHOICE, max_length=64)
     case_type = models.CharField(choices=CASE_TYPE, max_length=255, blank=True, null=True, default='')
-    # account = models.IntegerField()
     account = models.ForeignKey(Account, on_delete=models.CASCADE, blank=True, null=True)
-    contacts = models.IntegerField()
-    # contacts = models.ManyToManyField(Contact)
+    # contacts = models.IntegerField()
+    contacts = models.ManyToManyField(Contact)
     closed_on = models.DateTimeField()
     description = models.TextField(blank=True, null=True)
     # assigned_to = models.IntegerField()
