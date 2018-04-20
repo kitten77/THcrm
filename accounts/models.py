@@ -11,8 +11,12 @@ class Account(models.Model):
     email = models.EmailField()
     phone = models.CharField(max_length=20)
     industry = models.CharField(_("Industry Type"), max_length=255, choices=INDCHOICES, blank=True, null=True)
-    billing_address = models.ForeignKey(Address, related_name='account_billing_address', on_delete=models.CASCADE, blank=True, null=True)
-    shipping_address = models.ForeignKey(Address, related_name='account_shipping_address', on_delete=models.CASCADE, blank=True, null=True)
+
+    billing_address = models.IntegerField(max_length=10)
+    # billing_address = models.ForeignKey(Address, related_name='account_billing_address', on_delete=models.CASCADE, blank=True, null=True)
+    shipping_address  = models.IntegerField(max_length=10)
+    # shipping_address = models.ForeignKey(Address, related_name='account_shipping_address', on_delete=models.CASCADE, blank=True, null=True)
+
     website = models.URLField(_("Website"), blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     assigned_to = models.ManyToManyField(User, related_name='account_assigned_to')
