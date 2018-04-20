@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'common',
     'cases',
     'emails',
+    'accounts',
     'simple_pagination',
     'compressor'
 ]
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
 #'accounts',
 #'leads',
 #'contacts',
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.middleware.common.CommonMiddleware',
