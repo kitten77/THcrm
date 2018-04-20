@@ -48,7 +48,8 @@ class Team(models.Model):
 
 
 class Comment(models.Model):
-    case = models.ForeignKey('cases.Case', blank=True, null=True, related_name="cases", on_delete=models.CASCADE)
+    case = models.IntegerField()
+    # case = models.ForeignKey('cases.Case', blank=True, null=True, related_name="cases", on_delete=models.CASCADE)
     comment = models.CharField(max_length=255)
     commented_on = models.DateTimeField(auto_now_add=True)
     commented_by = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
