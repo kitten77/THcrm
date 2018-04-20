@@ -99,3 +99,15 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+#added from old gitignore
+
+db.sqlite3
+media
+media-images
+cache
+.idea
+CACHE/
+.sass-cache/
+old_stuff
+migrations
