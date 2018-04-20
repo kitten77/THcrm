@@ -38,13 +38,13 @@ INSTALLED_APPS = [
     'emails',
     'accounts',
     'contacts',
+    'opportunity',
     'leads',
     'simple_pagination',
     'compressor'
 ]
 
 #'planner',
-#'opportunity',
 #'accounts',
 
 MIDDLEWARE = [
