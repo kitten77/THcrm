@@ -5,7 +5,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.forms import PasswordChangeForm
 #from common.models import User
-#TODO
 from .models import Profile
 
 class PasswordForm(forms.Form):
