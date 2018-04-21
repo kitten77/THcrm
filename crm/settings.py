@@ -17,6 +17,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
 
 # Application definition
 
@@ -40,9 +41,9 @@ INSTALLED_APPS = [
     'contacts',
     'opportunity',
     'leads',
-    'simple_pagination',
     'compressor'
 ]
+#'simple_pagination',
 
 #'planner',
 

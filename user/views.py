@@ -1,6 +1,7 @@
 from django.forms.formsets import formset_factory
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
+from django.core.paginator import Paginator
 # from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout as auth_logout, authenticate as auth_authenticate, login as auth_login, update_session_auth_hash
@@ -81,8 +82,9 @@ class UserUpdatePass(View):
         if bound_form.is_valid():
             user = bound_form.save()
             update_session_auth_hash(request, user)  # Important!
+            #not working because super().form_valid(form) is missing i think
             messages.success(request, 'Your password was successfully updated!')
-            return redirect('common:users_list')
+            return redirect('user:list')
 
         messages.error(request, 'Please correct the error below.')
         return render(request, self.template_name, {'form': bound_form})

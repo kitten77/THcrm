@@ -1,6 +1,6 @@
 .PHONY: init_venv deps freeze clean_venv
 
-all: init_venv deps database collectstatic superuser
+all: init_venv deps database superuser
 	PYTHONPATH=venv ; . venv/bin/activate
 
 init_venv:
@@ -19,10 +19,11 @@ collectstatic:
 	. venv/bin/activate && venv/bin/python manage.py collectstatic
 
 superuser:
-	. venv/bin/activate && venv/bin/python manage.py shell -c "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@THcrm.com', '63PSYlWaC0djrLwvN7x')"
+	. venv/bin/activate && venv/bin/python manage.py shell -c "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@THcrm.com', 'techhell')"
 
 clean_venv:
 	rm -rf venv
 
 reset_db:
-	. $(shell mv db.sqlite3 db.sqlite3_old); $(shell rm -rf user/migrations common/migrations cases/migrations emails/migrations accounts/migrations contacts/migrations opportunity/migrations leads/migrations)
+		mv db.sqlite3 db.sqlite3_old ;
+		rm -rf user/migrations common/migrations cases/migrations emails/migrations accounts/migrations contacts/migrations opportunity/migrations leads/migrations

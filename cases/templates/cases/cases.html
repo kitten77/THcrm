@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-{% load paginate %}
 {% block content %}
 <!-- main_container starts here -->
 <div class="main_container">
@@ -24,7 +23,7 @@
   <div class="filter_row row marl">
     <div class="col-md-12">
       <div class="card">
-        
+
         <form id="cases_filter" method="POST" action="" >{% csrf_token %}
           <div class="card-body">
             <div class="card-title">Filters</div>
@@ -88,11 +87,11 @@
   <div class="table_container_row row marl">
     <div class="col-md-12">
       <div class="card">
-        
+
         <div class="card-body">
         <div class="panel-heading-list card-title">
           List of Cases
-          <span class="float-right total_count">{% if show_pageitems %} {% show_pageitems %}{% else %}Total Cases {{ cases|length }}{% endif %}</span>
+          <span class="float-right total_count">{% if show_pageitems %} {{ show_pageitems }}{% else %}Total Cases {{ cases|length }}{% endif %}</span>
         </div>
         <div class="table-responsive">
           <table class="table table-bordered table-striped table-condensed" id="multiselect">
@@ -107,11 +106,6 @@
               </tr>
             </thead>
             <tbody>
-              {% if per_page %}
-                {% paginate per_page cases %}
-              {% else%}
-                {% paginate 10 cases%}
-              {% endif %}
               {% for case in cases %}
               <tr class="case_row{{case.id}}" style="text-align:center;">
                 <td scope="row">{{ forloop.counter }}</td>
@@ -140,7 +134,28 @@
             <h6 class="text-center">No Cases Records Found</h6>
           {% endifequal %}
           <div class="marl row text-center">
-            {% show_pages %}
+            <div class="text-center row marl">
+                {% if is_paginated %}
+                  <ul class="pagination">
+                    {% if page_obj.has_previous %}
+                      <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+                    {% else %}
+                      <li class="page-item disabled"><a class="page-link" href="?page=1">&laquo;</a></li>
+                    {% endif %}
+                    {% for i in paginator.page_range %}
+                      {% if page_obj.number == i %}
+                        <li class="page-item active"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                      {% else %}
+                        <li class="page-item active"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                      {% endif %}
+                    {% endfor %}
+                    {% if page_obj.has_next %}
+                      <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+                    {% else %}
+                      <li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>
+                    {% endif %}
+                  </ul>
+                {% endif %}
           </div>
         </div>
       </div>
