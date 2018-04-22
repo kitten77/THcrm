@@ -1,5 +1,5 @@
-{% extends 'base.html' %}
-{% load staticfiles %}
+{% extends "user/base_user.html" %}
+
 {% block breadcrumb %}
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
@@ -9,30 +9,31 @@
 </nav>
 
 {% endblock breadcrumb %}
+
 {% block content %}
-<form id="add_form" method="POST" action="{{ user_obj.get_update_url }}" novalidate>{%csrf_token%}
-  <div class="overview_form_block row marl justify-content-center">
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-body">
-         <div class="card-title text-center">Updating {{ user_obj.username }}</div>
-          <div class="row marl">
-            <div class="col-md-12">
-              <div class="filter_col col-md-12">
-                <div class="form-group">
-                  {{ form.as_p }}
-                  {{ passform.as_p }}
-                </div>
-              </div>
+<div class="right_col" role="main">
+  <div class="clearfix"></div>
+    <div class="x_panel">
+      <div class="x_title">
+        <h2>Update user</h2>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+        <div class="col-md-8 center-margin">
+          <form class="form-horizontal form-label-left" id="add_form" method="POST" action="{{ user_obj.get_update_url }}">
+            {%csrf_token%}
+            <div class="form-group">
+              {{ form.as_p }}
+              {{ passform.as_p }}
+            <div class="row marl buttons_row form_btn_row text-center">
+              <button class="btn btn-default save" type="submit">Save</button>
+              <a href="{% url 'user:list' %}" class="btn btn-default clear" id="create_user_cancel">Cancel</a>
             </div>
-          </div>
-          <div class="row marl buttons_row form_btn_row text-center">
-            <button class="btn btn-default save" type="submit">Save</button>
-            <a href="{% url 'user:list' %}" class="btn btn-default clear" id="create_user_cancel">Cancel</a>
-          </div>
+            </div>
+          </form>
         </div>
       </div>
-    </div>
   </div>
-</form>
+</div>
+
 {% endblock content %}

@@ -1,69 +1,118 @@
 {% load staticfiles %}
 {% load compress %}
-<!doctype html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
-<!--[if gt IE 8]> <html class="no-js" lang=""> <![endif]-->
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>
-  {% block title %}
-    The handy CRM 
-  {% endblock %}
-  </title>
-  <meta name="description" content="">
-  <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon" />
-  <link rel="apple-touch-icon" href="{% static 'apple-touch-icon.png' %}">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous">
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-  {% compress css %}
-    <link href="{% static 'css/main.scss' %}" type="text/x-scss" rel="stylesheet">
-    <!-- <link href="{% static 'css/main.css' %}" rel="stylesheet"> -->
-  {% endcompress %}
-</head>
-<body class="main_body_bg_color">
-<div class="wrapper">
-  <!-- header starts here -->
-  <header>
-    {% if user.is_authenticated %}
-      {% include 'nav_menu.html' %}
-    {% endif %}
+  <head>
+    {% block head %}
+      {% block meta %}
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!-- Meta, title, CSS, favicons, etc. -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+      {% endblock meta %}
 
-  </header>
-  <!-- header ends here -->
-  <!-- main_container starts here -->
-  <div id="mainbody" class="main_container">
-    <!-- breadcrumb starts here -->
-    {% block breadcrumb %}
-    {% endblock %}
-    <!-- breadcrumb ends here -->
-    <!-- breadcrumb1 starts here -->
-    {% block breadcrumb1 %}
-    {% endblock %}
-    <!-- breadcrumb1 ends here -->
-    <!-- assigned_teams starts here -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment-with-locales.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
-    <script src="{% static 'js/index.js' %}"></script>
-    {% block content %}
-    {% endblock %}
-    </div>
-    <!-- main_container ends here -->
-</div>
-{% block js_block %}
-{% endblock js_block %}
-</body>
+      <title>{% block title %} The handy CRM {% endblock %}</title>
+
+      {% block stylesheets %}
+
+        <!-- Bootstrap -->
+        <link href="/static/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous">
+
+        <link href="/static/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+        <!-- NProgress -->
+        <link href="/static/vendors/nprogress/nprogress.css" rel="stylesheet">
+        <!-- bootstrap-daterangepicker -->
+        <link href="/static/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+        <!-- iCheck -->
+        <link href="/static/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+        <!-- bootstrap-progressbar -->
+        <link href="/static/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+        <!-- JQVMap -->
+        <link href="/static/vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
+      {% endblock stylesheets %}
+      <!-- Custom Theme Style -->
+      <!-- <link href="{% static 'css/main.scss' %}" type="text/x-scss" rel="stylesheet"> -->
+      <!-- <link href="{% static 'css/main.css' %}" rel="stylesheet"> -->
+      {% compress css %}
+        <link href="/static/build/css/custom.css" rel="stylesheet">
+      {% endcompress %}
+    {% endblock head %}
+  </head>
+
+  <body class="{% block body_class %}nav-md {% endblock body_class %}">
+    {% block body %}
+      <div class="container body">
+        <div class="main_container">
+
+          {% block sidebar %}
+          {% if user.is_authenticated %}
+            <div class="col-md-3 left_col {% block sidebar_class %} {% endblock sidebar_class %}">
+              {% include "sidebar.html" %}
+            </div>
+          {% endif %}
+          {% endblock sidebar %}
+
+          {% block top_navigation %}
+          {% if user.is_authenticated %}
+            <div class="top_nav">
+              {% include "top_navigation.html" %}
+            </div>
+          {% endif %}
+          {% endblock top_navigation %}
+
+          {% block content %}
+            <!-- {{ content }} -->
+          {% endblock content %}
+
+          {% block footer %}
+            <footer>
+              {% include "footer.html" %}
+            </footer>
+          {% endblock footer %}
+        </div>
+      </div>
+
+      {% block javascripts %}
+        <!-- jQuery -->
+        <script src="/static/vendors/jquery/dist/jquery.min.js"></script>
+        <!-- Bootstrap -->
+        <script src="/static/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+        <!-- FastClick -->
+        <script src="/static/vendors/fastclick/lib/fastclick.js"></script>
+        <!-- NProgress -->
+        <script src="/static/vendors/nprogress/nprogress.js"></script>
+        <!-- bootstrap-progressbar -->
+        <script src="/static/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+        <!-- iCheck -->
+        <script src="/static/vendors/iCheck/icheck.min.js"></script>
+        <!-- bootstrap-daterangepicker -->
+        <script src="/static/vendors/moment/min/moment.min.js"></script>
+        <script src="/static/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+        <!-- bootstrap-wysiwyg -->
+        <script src="/static/vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
+        <script src="/static/vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
+        <script src="/static/vendors/google-code-prettify/src/prettify.js"></script>
+        <!-- jQuery Tags Input -->
+        <script src="/static/vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
+        <!-- Switchery -->
+        <script src="/static/vendors/switchery/dist/switchery.min.js"></script>
+        <!-- Select2 -->
+        <script src="/static/vendors/select2/dist/js/select2.full.min.js"></script>
+        <!-- Parsley -->
+        <script src="/static/vendors/parsleyjs/dist/parsley.min.js"></script>
+        <!-- Autosize -->
+        <script src="/static/vendors/autosize/dist/autosize.min.js"></script>
+        <!-- jQuery autocomplete -->
+        <script src="/static/vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
+        <!-- starrr -->
+        <script src="/static/vendors/starrr/dist/starrr.js"></script>
+      {% endblock %}
+      <!-- Custom Theme Scripts -->
+      <script src="/static/build/js/custom.js"></script>
+    {% endblock body %}
+  </body>
 </html>

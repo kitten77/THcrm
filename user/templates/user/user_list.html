@@ -1,143 +1,95 @@
-{% extends 'base.html' %}
-{% load staticfiles %}
+{% extends "user/base_user.html" %}
+
+{% block title %} {{ block.super }} - Users {% endblock title %}
+
+{% block stylesheets %}
+  {{ block.super }}
+{% endblock stylesheets %}
+
 {% block content %}
-  <!-- main_container starts here -->
-  <div class="main_container">
-    <!-- heading_create starts here -->
-    <div class="row marl heading_create">
-      <div class="heading col-md-12">
-        <div class="no-gutters row">
-        <div class="col-md-6">
-          <h4>Users</h4>
+  <div class="right_col" role="main">
+    <div class="">
+      <div class="page-title">
+        <div class="title_left">
+          <h3>Users</h3>
         </div>
-        <div class="col-md-6">
-          <div class="create_new text-right">
-            <a href="{% url 'user:create'%}"><i class="fa fa-plus"></i> Add New User</a>
-          </div>
-        </div>
-        </div>
-      </div>
-    </div>
-    <!-- heading_create ends here -->
-    <!-- filter_row starts here -->
-    <div class="filter_row row marl">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="card-body">
-          <div class="card-title">Filters</div>
-          <form id="users_filter" action="" method="POST">{%csrf_token%}
-            <div class="row marl">
-              <div class="filter_col col-4">
-                <div class="form-group">
-                  <label for="exampleInputEmail1">User Name</label>
-                  <input type="text" class="form-control" placeholder="Username" name="username" value="{{request.POST.username}}">
-                </div>
-              </div>
-              <div class="filter_col col-4">
-                <div class="form-group">
-                  <label for="exampleInputEmail1">First Name</label>
-                  <input type="text" class="form-control" placeholder="First Name" name="first_name" value="{{request.POST.first_name}}">
-                </div>
-              </div>
-              <div class="filter_col col-4">
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Email</label>
-                  <input type="text" class="form-control" placeholder="Email" name="email" value="{{request.POST.email}}">
-                </div>
-              </div>
-              <div class="filter_col text-center col-12">
-                <div class="form-group buttons_row">
-                  <button class="btn btn-primary save" type="submit">Search</button>
-                  <a href="{% url 'user:list' %}" class="btn btn-default clear">Clear</a>
-                </div>
-              </div>
-              <br clear="all">
+
+        <div class="title_right">
+          <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search for...">
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="button">Go!</button>
+              </span>
             </div>
-          </form>
           </div>
         </div>
       </div>
-    </div>
-    <!-- filter_row ends here -->
-    <div class="table_container_row row marl">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="card-body">
-            <div class="card-title list">
-              List of Users
-              <span class="float-right total_count">Total Users {{ object_list|length }}</span>
+
+      <div class="clearfix"></div>
+
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="x_panel">
+            <div class="x_title">
+              <h2>Listing  Users</h2>
+              <ul class="nav navbar-right">
+                <a href="{% url 'user:create'%}" class="btn btn-round btn-danger"><i class="fa fa-plus"></i> Add New User</a>
+              </ul>
+              <div class="clearfix"></div>
             </div>
-            <div class="table-responsive ">
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr class="text-center">
-                    <th width="5%">Primary key</th>
-                    <th width="20%">First Name</th>
-                    <th width="20%">Username</th>
-                    <th width="20%">Email Address</th>
-                    <th width="15%">Status</th>
-                    <th width="20%">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for user in object_list %}
-                  <tr class="text-center">
-                    <td>{{ user.pk }}</td>
-                    <td>{{ user.first_name }} {{ user.last_name }}</td>
-                    <td>{{ user.username }}</td>
-                    <td>{{ user.email }}</td>
-                    <td>
-                      {% if user.is_active == True %}
-                        Active
-                      {% else %}
-                        InActive
-                      {% endif %}
-                    </td>
-                    <td class="actions">
-                      <a href="{{ user.profile.get_view_url }}" class="btn btn-info view"><i class="fas fa-eye"></i>View</a>
-                      <a href="{{ user.profile.get_update_url }}" class="btn btn-success edit"><i class="fas fa-pencil-alt"></i>Edit</a>
-                      {# {% url 'user:delete' user.id %} #}
-                      <a href="#" class="btn btn-danger delete"><i class="fas fa-trash"></i>Delete</a>
-                    </td>
-                  </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
-            </div>
-            {% ifequal object_list|length 0 %}
-              <h6 class="text-center">No User Records Found</h6>
-            {% endifequal %}
-            <div class="container">
-              {% if is_paginated %}
-                <ul class="pagination">
-                  {% if page_obj.has_previous %}
-                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
-                  {% else %}
-                    <li class="page-item disabled"><a class="page-link" href="?page=1">&laquo;</a></li>
-                  {% endif %}
-                  {% for i in paginator.page_range %}
-                    {% if page_obj.number == i %}
-                      <li class="page-item active"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
-                    {% else %}
-                      <li class="page-item active"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
-                    {% endif %}
-                  {% endfor %}
-                  {% if page_obj.has_next %}
-                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
-                  {% else %}
-                    <li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>
-                  {% endif %}
-                </ul>
-              {% endif %}
+
+            <div class="x_content">
+              <div class="table-responsive">
+                <table class="table table-striped jambo_table bulk_action">
+                  <thead>
+                    <tr class="headings">
+                      <!-- <th>
+                        <input type="checkbox" id="check-all" class="flat">
+                      </th> -->
+                      <th width="5%" class="column-title">Primary key </th>
+                      <th width="10%" class="column-title">Firstname </th>
+                      <th width="10%" class="column-title">Lastname </th>
+                      <th width="10%" class="column-title">Email </th>
+                      <th width="15%" class="column-title">Status </th>
+                      <th width="20%" class="column-title">Actions</th>
+                      <th width="20%" class="column-title no-link last"><span class="nobr">Action</span>
+                      </th>
+                      <th class="bulk-actions" colspan="7">
+                        <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+                      </th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {% for user in object_list %}
+                    <tr>
+                      <!-- <td class="a-center "><input type="checkbox" class="flat" name="table_records"></td> -->
+                      <td class="text-md">{{ user.pk }}</td>
+                      <td class="text-md-left">{{ user.first_name }} </td>
+                      <td>{{ user.last_name }}</td>
+                      <td>{{ user.username }}</td>
+                      <td>{{ user.email }}</td>
+                      <td>{% if user.is_active == True %}Active{% else %}InActive{% endif %}</td>
+                      <td>
+                        <a href="{{ user.profile.get_view_url }}" class="btn btn-info btn-round btn-xs"><i class="fas fa-eye"></i>View</a>
+                        <a href="{{ user.profile.get_update_url }}" class="btn btn-success btn-round btn-xs"><i class="fas fa-pencil-alt"></i>Edit</a>
+                        {# {% url 'user:delete' user.id %} #}
+                        <a href="#" class="btn btn-danger btn-round btn-xs"><i class="fas fa-trash"></i>Delete</a>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+{% endblock content %}
 
-  <!-- main_container ends here -->
-{% endblock %}
-{% block js_block %}
-
-{% endblock js_block %}
+{% block javascripts %}
+  {{ block.super }}
+{% endblock javascripts %}

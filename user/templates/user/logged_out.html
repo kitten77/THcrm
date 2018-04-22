@@ -1,9 +1,16 @@
 {% extends "user/base_user.html" %}
 
 {% block title %}
-{{ block.super }} - Logged out
+{{ block.super }} - Login
 {% endblock %}
 
-{% block content %}
-{% include "user/login_form.html" with login_button="Log back in" login_header="You've successfully logged out." %}
-{% endblock %}
+{% block stylesheets %}
+  {{ block.super }}
+  <!-- Animate.css -->
+  <link href="/static/vendors/animate.css/animate.min.css" rel="stylesheet">
+{% endblock stylesheets %}
+
+{% block body_class %}login{% endblock body_class %}
+{% block body %}
+{% include "user/login_form.html" with login_button="Log back in" login_header="Success <br> log back in." %}
+{% endblock body %}
