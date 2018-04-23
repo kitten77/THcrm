@@ -18,6 +18,6 @@ redis==2.10.6
 requests==2.18.4
 rjsmin==1.0.12
 six==1.11.0
-sqlite3==0.0.0
+sqlite3
 urllib3==1.22
 whitenoise==3.3.1
