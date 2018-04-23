@@ -12,7 +12,7 @@
     </div>
     <div class="profile_info">
       <span>Welcome,</span>
-      <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+      <h2>{{ user.first_name|title }} {{ user.last_name|title }}</h2>
     </div>
   </div>
   <!-- /menu profile quick info -->
@@ -24,7 +24,7 @@
     <div class="menu_section">
       <h3>General</h3>
       <ul class="nav side-menu">
-        <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+        <li><a><i class="fa fa-home"></i> Admin <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
             <li class="nav-item"><a class="nav-link" href="{% url 'user:list' %}">Users</a></li>
             <!-- <li><a href="index.html">Dashboard</a></li>
