@@ -35,6 +35,10 @@ class Profile(models.Model):
     def get_short_name(self):
         return self.user.username
 
+    def get_name(self):
+        name = self.user.first_name.title() + ' ' + self.user.last_name.title()
+        return name
+
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:

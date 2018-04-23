@@ -60,4 +60,10 @@ class TestUserProfileModel(TestCase):
     def test_list_users(self):
         response = self.c.get('/user/list/')
         self.assertEqual(200, response.status_code)
-        
+
+    def test_user_name(self):
+        self.test_create_user()
+        user = User.objects.get(username=self.username)
+        entry = user.profile.get_name()
+        name = self.name.title() + ' ' + self.name.title()
+        self.assertEqual(entry, name)
