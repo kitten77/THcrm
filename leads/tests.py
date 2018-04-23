@@ -22,14 +22,14 @@ class TestLeadModel(object):
                                               country="AD")
 
         self.account = Account.objects.create(name="account",
-                                                  email="account@gmail.com",
-                                                  phone="12345",
-                                                  billing_address=Address.objects.get(pk=1),
-                                                  shipping_address=Address.objects.get(pk=1),
-                                                  website="account.com",
-                                                  industry="IT",
-                                                  description="account",
-                                                  created_by=self.user)
+                                              email="account@gmail.com",
+                                              phone="12345",
+                                              billing_address=Address.objects.get(pk=1),
+                                              shipping_address=Address.objects.get(pk=1),
+                                              website="account.com",
+                                              industry="IT",
+                                              description="account",
+                                              created_by=self.user)
 
         self.lead = Lead.objects.create(title="LeadCreation",
                                         first_name="anjali",

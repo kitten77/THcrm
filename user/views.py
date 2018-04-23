@@ -11,8 +11,8 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.views.generic import View, ListView
 from django.contrib.auth.models import User
-# from .models import Profile
-from .forms import LoginForm, UserForm, PasswordForm, ResetPassForm
+from .models import Profile
+from .forms import LoginForm, UserForm, PasswordForm, ResetPassForm, ProfileForm
 # from .models import User
 
 #TODO there is still missing things like view_user and edit_user so still some
@@ -46,23 +46,29 @@ class UserLogin(View):
 class UserCreate(View):
     form_class = UserForm
     formset_password = formset_factory(PasswordForm)
+    formset_profile = formset_factory(ProfileForm)
     # users_list = User.objects.all()
     template_name = 'user/user_create_form.html'
 
     def get(self, request):
-        context = {'form': self.form_class, 'passform': self.formset_password}
+        context = {'form': self.form_class, 'passform': self.formset_password, 'profile': formset_profile}
         return render(request, self.template_name, context)
 
     def post(self, request):
         bound_form = self.form_class(request.POST)
         password_form = self.formset_password(request.POST)
+        profile_form = self.formset_profile(request.POST)
         if all([bound_form.is_valid(), password_form.is_valid()]):
             new_user = bound_form.save(commit=False)
+            #new_profile = profile_form.save(commit=False)
             for inline_form in password_form:
                 if inline_form.cleaned_data:
                     password = inline_form.cleaned_data
                     new_user.set_password(password)
+
             new_user.save()
+            #new_profile.save()
+
             return redirect("user:list")
 
         return render(request, self.template_name, {'form': bound_form, 'passform': password_form})
@@ -120,20 +126,27 @@ class UserEdit(View):
         class view for editing user
     """
     model = User
+    profile_model = Profile
     form_class = UserForm
+    form_profile = ProfileForm
     success_url = reverse_lazy('user:list')
     template_name = 'user/user_update_form.html'
 
     def get(self, request, user_id):
-        obj = get_object_or_404(self.model, pk=user_id)
-        context = {'form': self.form_class(instance=obj), 'user_obj': obj}
+        user_obj = get_object_or_404(self.model, pk=user_id)
+        profile_obj = get_object_or_404(self.profile_model, user=user_obj)
+        formset = self.form_profile(instance=profile_obj)
+        context = {'form': self.form_class(instance=user_obj), 'user_obj': user_obj, 'profile': formset}
         return render(request, self.template_name, context)
 
     def post(self, request, user_id):
         obj = get_object_or_404(self.model, pk=user_id)
+        profile_obj = get_object_or_404(self.profile_model, pk=user_id)
         bound_form = self.form_class(request.POST, instance=obj)
-        if bound_form.is_valid():
+        profile_form = self.form_profile(request.POST, instance=profile_obj)
+        if bound_form.is_valid() and profile_form.is_valid():
             bound_form.save()
+            profile_form.save()
             return redirect(self.success_url)
         else:
             context = {'form': bound_form, self.model.__name__.lower(): obj}

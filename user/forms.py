@@ -98,11 +98,11 @@ class UserForm(forms.ModelForm):
                 return self.cleaned_data.get("email")
         else:
             if not User.objects.filter(email=self.cleaned_data.get("email")).exists():
-                    return self.cleaned_data.get("email")
+                return self.cleaned_data.get("email")
             else:
                 raise forms.ValidationError('User already exists with this email')
 
-class UserProfile(forms.ModelForm):
+class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('bio', 'location', 'birth_date')
