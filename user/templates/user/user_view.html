@@ -58,10 +58,10 @@
                     <img class="img-responsive avatar-view" src="/static/images/picture.jpg" alt="Avatar" title="Change the avatar">
                   </div>
                 </div>
-                <h3>Samuel Doe</h3>
+                <h3>{{ user_obj.profile.get_name }}</h3>
 
                 <ul class="list-unstyled user_data">
-                  <li><i class="fa fa-map-marker user-profile-icon"></i> San Francisco, California, USA
+                  <li><i class="fa fa-map-marker user-profile-icon"></i> {{ user_obj.profile.location }}
                   </li>
 
                   <li>
@@ -74,7 +74,7 @@
                   </li>
                 </ul>
 
-                <a class="btn btn-success" href="{{ user.profile.get_update_url }}"><i class="fa fa-edit m-right-xs"></i>Edit Profile</a>
+                <a class="btn btn-success" href="{{ user_obj.profile.get_update_url }}"><i class="fa fa-edit m-right-xs"></i>Edit Profile</a>
                 <br />
 
                 <!-- start skills -->
@@ -272,7 +272,7 @@
 
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
-                      <p>{{ user.profile.bio }} </p>
+                      <p>{{ user_obj.profile.bio }} </p>
                     </div>
                   </div>
                 </div>

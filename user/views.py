@@ -45,33 +45,34 @@ class UserLogin(View):
 
 class UserCreate(View):
     form_class = UserForm
-    formset_password = formset_factory(PasswordForm)
-    formset_profile = formset_factory(ProfileForm)
+    formset_password = formset_factory(PasswordForm) #this could be simplified with the formset_factory
+    formset_profile = ProfileForm
     # users_list = User.objects.all()
     template_name = 'user/user_create_form.html'
 
     def get(self, request):
-        context = {'form': self.form_class, 'passform': self.formset_password, 'profile': formset_profile}
+        context = {'form': self.form_class, 'passform': self.formset_password, 'profile': self.formset_profile}
         return render(request, self.template_name, context)
 
     def post(self, request):
         bound_form = self.form_class(request.POST)
         password_form = self.formset_password(request.POST)
-        profile_form = self.formset_profile(request.POST)
+        # profile_form = self.formset_profile(request.POST.user.profile, instance=new_user)
         if all([bound_form.is_valid(), password_form.is_valid()]):
             new_user = bound_form.save(commit=False)
-            #new_profile = profile_form.save(commit=False)
+            # nw_profile = profile_form.save(commit=False)
+            # if nw_profile.is_valid():
+            #     print("here i am saving the nw_profile")
+            #     nw_profile.save()
             for inline_form in password_form:
                 if inline_form.cleaned_data:
                     password = inline_form.cleaned_data
                     new_user.set_password(password)
 
             new_user.save()
-            #new_profile.save()
-
             return redirect("user:list")
 
-        return render(request, self.template_name, {'form': bound_form, 'passform': password_form})
+        return render(request, self.template_name, {'form': bound_form, 'passform': password_form, 'profile': profile_form})
 
 class UserUpdatePass(View):
     form_class = ResetPassForm

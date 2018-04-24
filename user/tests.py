@@ -47,8 +47,7 @@ class TestUserProfileModel(TestCase):
                         'email': self.email, 'username': self.username,
                         'form-0-password': self.password, 'form-0-password1': self.password,
                         'form-TOTAL_FORMS': 1, 'form-INITIAL_FORMS': 0,
-                        'form-MIN_NUM_FORMS': 0, 'form-MAX_NUM_FORMS': 1000,
-                        'bio': self.bio, 'location': self.location, 'birth_date': self.birth_date }
+                        'form-MIN_NUM_FORMS': 0, 'form-MAX_NUM_FORMS': 1000, }
         response = self.c.post('/user/create/', user_create, follow=True)
         # print(response.content)
         self.assertEqual(200, response.status_code)
@@ -61,9 +60,28 @@ class TestUserProfileModel(TestCase):
         response = self.c.get('/user/list/')
         self.assertEqual(200, response.status_code)
 
+    def test_create_user_link(self):
+        response = self.c.get('/user/create/')
+        self.assertEqual(200, response.status_code)
+
     def test_user_name(self):
+        self.test_login_user()
         self.test_create_user()
         user = User.objects.get(username=self.username)
         entry = user.profile.get_name()
         name = self.name.title() + ' ' + self.name.title()
         self.assertEqual(entry, name)
+
+    def test_user_bio(self):
+        self.test_login_user()
+        self.test_create_user()
+        user = User.objects.get(username=self.username)
+        entry = user.profile.bio
+        self.assertEqual(entry, self.bio)
+
+    def test_user_location(self):
+        self.test_login_user()
+        self.test_create_user()
+        user = User.objects.get(username=self.username)
+        entry = user.profile.location
+        self.assertEqual(entry, self.location)
