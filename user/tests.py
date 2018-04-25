@@ -1,10 +1,11 @@
-from django.test import TestCase, Client
-from django.contrib.auth.models import User
 import datetime
+
 from dateutil.relativedelta import relativedelta
-from django.utils.timezone import now
-from .models import Profile
+from django.contrib.auth.models import User
+from django.test import TestCase, Client
+
 from common.passwd_gen import passwd_gen
+
 
 # Create your tests here.
 class TestUserProfileModel(TestCase):
@@ -25,19 +26,18 @@ class TestUserProfileModel(TestCase):
                     Mauris massa."
         self.location = "Norway"
         self.birth_date = datetime.datetime.now() - relativedelta(years=18)
+        user_update = {'first_name': self.name, 'last_name': self.name,
+                       'email': self.email, 'username': self.username,
+                       'bio': self.bio, 'location':self.location,
+                       'birth_date': self.birth_date}
+
+        user_create = {'first_name': self.name, 'last_name': self.name,
+                       'email': self.email, 'username': self.username,
+                       'form-0-password': self.password, 'form-0-password1': self.password,
+                       'form-TOTAL_FORMS': 1, 'form-INITIAL_FORMS': 0,
+                       'form-MIN_NUM_FORMS': 0, 'form-MAX_NUM_FORMS': 1000, }
+
         self.c = Client()
-
-        #self.user = User.objects.create(username=self.username, email=self.email, first_name=self.first_name, last_name=self.first_name)
-        #self.user.set_password(self.password)
-        #self.user.save()
-        #self.pk =self.user.pk)
-        #profile = Profile.objects.create(user = self.user.pk, bio = self.bio, location=self.location, birth_date=self.birth_date)
-        #profile.save()
-        #self.profile = Profile.create(bio="")
-
-    # def test_profile_bio(self):
-    #     bio = User.objects.get(id=self.user.pk)
-    #     self.assertEqual(bio, self.bio)
 
     def test_create_user(self):
         """
@@ -52,6 +52,27 @@ class TestUserProfileModel(TestCase):
         # print(response.content)
         self.assertEqual(200, response.status_code)
 
+    # def test_update_user(self):
+    #     """
+    #     Login as user and update profile
+    #     """
+    #
+    #     user = User.objects.create_user(self.username, self.email, self.password)
+    #     self.c.login(username=self.username, password=self.password)
+    #     print(user.profile.get_view_url)
+    #     # self.test_create_user()
+    #     # self.c.login(email=self.email, password=self.password)
+    #     user_update = {'first_name': self.name, 'last_name': self.name,
+    #                    'email': self.email, 'username': self.username,
+    #                    'bio': self.bio, 'location':self.location,
+    #                    'birth_date': self.birth_date }
+    #     update_url = user.profile.get_update_url()
+    #     response = self.c.post(update_url, user_update, follow=True)
+    #     entry = user.profile.bio
+    #     self.assertEqual(entry, self.bio)
+    #     self.assertEqual(200, response.status_code)
+    #     return user
+
     def test_login_user(self):
         response = self.c.post('/user/login/', {'username': self.username, 'password': self.password}, follow=True)
         self.assertEqual(200, response.status_code)
@@ -65,23 +86,8 @@ class TestUserProfileModel(TestCase):
         self.assertEqual(200, response.status_code)
 
     def test_user_name(self):
-        self.test_login_user()
         self.test_create_user()
         user = User.objects.get(username=self.username)
         entry = user.profile.get_name()
         name = self.name.title() + ' ' + self.name.title()
         self.assertEqual(entry, name)
-
-    def test_user_bio(self):
-        self.test_login_user()
-        self.test_create_user()
-        user = User.objects.get(username=self.username)
-        entry = user.profile.bio
-        self.assertEqual(entry, self.bio)
-
-    def test_user_location(self):
-        self.test_login_user()
-        self.test_create_user()
-        user = User.objects.get(username=self.username)
-        entry = user.profile.location
-        self.assertEqual(entry, self.location)

@@ -1,11 +1,12 @@
 from django import forms
-from django.core.exceptions import ValidationError
 from django.contrib.auth import authenticate
-from django.contrib.auth.models import User
-from django.contrib.auth.hashers import check_password
 from django.contrib.auth.forms import PasswordChangeForm
-#from common.models import User
+from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+
+# from common.models import User
 from .models import Profile
+
 
 class PasswordForm(forms.Form):
     #TODO will need to write a bigger policy on passwords
@@ -104,5 +105,13 @@ class UserForm(forms.ModelForm):
 
 class ProfileForm(forms.ModelForm):
     class Meta:
+        """
+        Meta tagging the forms
+        """
         model = Profile
         fields = ('bio', 'location', 'birth_date')
+
+    def __init__(self, *args, **kwargs):
+        super(ProfileForm, self).__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs = {"class": "form-control"}
