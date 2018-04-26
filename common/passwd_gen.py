@@ -1,5 +1,5 @@
-from random import *
 import string
+from random import *
 
 
 def passwd_gen():
@@ -17,4 +17,4 @@ def passwd_gen():
 
 if __name__ == '__main__':
     gen_password = passwd_gen()
-    print(f"newly created password: {gen_password}")
+    # print(f"newly created password: {gen_password}")

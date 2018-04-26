@@ -1,8 +1,7 @@
-from django.test import TestCase
-from common.models import *
-from accounts.models import Account
-from django.contrib.auth.models import User
+from django.test import TestCase, Client
 
+from accounts.models import Account
+from common.models import *
 
 
 # Create your tests here.
@@ -10,10 +9,10 @@ from django.contrib.auth.models import User
 
 class AccountCreateTest(object):
     def setUp(self):
-        self.user = User.objects.create(first_name="uday", username='uday', email='u@mp.com', role='ADMIN')
+        self.user = User.objects.create(first_name="uday", username='uday', email='u@mp.com')
         self.user.set_password('uday2293')
         self.user.save()
-
+        self.client = Client()
         self.address = Address.objects.create(
             street="KPHB", city="HYDERABAD", state="ANDHRA PRADESH", postcode="500073", country='IN')
         self.account = Account.objects.create(

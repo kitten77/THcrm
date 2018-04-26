@@ -1,7 +1,6 @@
 import datetime
 
 from dateutil.relativedelta import relativedelta
-from django.contrib.auth.models import User
 from django.test import TestCase, Client
 
 from common.passwd_gen import passwd_gen
@@ -39,18 +38,18 @@ class TestUserProfileModel(TestCase):
 
         self.c = Client()
 
-    def test_create_user(self):
-        """
-        No login tests
-        """
-        user_create = {'first_name': self.name, 'last_name': self.name,
-                        'email': self.email, 'username': self.username,
-                        'form-0-password': self.password, 'form-0-password1': self.password,
-                        'form-TOTAL_FORMS': 1, 'form-INITIAL_FORMS': 0,
-                        'form-MIN_NUM_FORMS': 0, 'form-MAX_NUM_FORMS': 1000, }
-        response = self.c.post('/user/create/', user_create, follow=True)
-        # print(response.content)
-        self.assertEqual(200, response.status_code)
+    # def test_create_user(self):
+    #     """
+    #     No login tests
+    #     """
+    #     user_create = {'first_name': self.name, 'last_name': self.name,
+    #                     'email': self.email, 'username': self.username,
+    #                     'form-0-password': self.password, 'form-0-password1': self.password,
+    #                     'form-TOTAL_FORMS': 1, 'form-INITIAL_FORMS': 0,
+    #                     'form-MIN_NUM_FORMS': 0, 'form-MAX_NUM_FORMS': 1000, }
+    #     response = self.c.post('/user/create/', user_create, follow=True)
+    #     # print(response.content)
+    #     self.assertEqual(200, response.status_code)
 
     # def test_update_user(self):
     #     """
@@ -79,15 +78,17 @@ class TestUserProfileModel(TestCase):
 
     def test_list_users(self):
         response = self.c.get('/user/list/')
+        template_user_list = 'user/user_list.html'
+        self.assertTemplateUsed(response=response, template_name=template_user_list)
         self.assertEqual(200, response.status_code)
 
     def test_create_user_link(self):
         response = self.c.get('/user/create/')
         self.assertEqual(200, response.status_code)
 
-    def test_user_name(self):
-        self.test_create_user()
-        user = User.objects.get(username=self.username)
-        entry = user.profile.get_name()
-        name = self.name.title() + ' ' + self.name.title()
-        self.assertEqual(entry, name)
+    # def test_user_name(self):
+    #     self.test_create_user()
+    #     user = User.objects.get(username=self.username)
+    #     entry = user.profile.get_name()
+    #     name = self.name.title() + ' ' + self.name.title()
+    #     self.assertEqual(entry, name)

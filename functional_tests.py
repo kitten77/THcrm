@@ -1,7 +1,24 @@
+import unittest
+
 from selenium import webdriver
 
-test_site = 'http://hq.h.l9:8000'
-browser = webdriver.Firefox()
-browser.get(test_site)
 
-assert 'User list' in browser.title
+class NewVisitorTest(unittest.TestCase):
+
+    """
+    A test class for functional testing of THcrm
+    """
+
+    def setUp(self):
+        self.browser = webdriver.Chrome()
+    #
+    # def tearDown(self):
+    #     self.browser.quit()
+
+    def test_can_view_home_page(self):
+        self.browser.get("http://localhost:8000/")
+        self.assertIn('To-Do', self.browser.title)
+        self.fail('Finish the test')
+
+if __name__ == '__main__':
+    unittest.main(warnings='ignore')

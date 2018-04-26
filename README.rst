@@ -18,6 +18,11 @@ This project contains the following modules.
    * Opportunity
    * Planner
 
+Branching
+=========
+The master branch is our stable release, the develop branch is highly unstable and in constant flux and not recommended for production.
+We are rebuilding everything in development for the time being so I know it will break the master branch and it's database. You have been warned
+
 Installation
 ============
 If you cloned the package from git use virtualenv to install requirements::
@@ -28,4 +33,4 @@ If you cloned the package from git use virtualenv to install requirements::
 
 We welcome your feedback and support, raise github ticket if you want to report a bug.
 Need new features?
-Open a issue and we will look into it
+Open a issue and we will look into it.

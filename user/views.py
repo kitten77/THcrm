@@ -17,21 +17,21 @@ from .models import Profile
 
 # from .models import User
 
-#TODO there is still missing things like view_user and edit_user so still some
-#TODO work left for me to clean it out of the old common app
+# TODO there is still missing things like view_user and edit_user so still some
+# TODO work left for me to clean it out of the old common app
 
 
 class UserLogin(View):
     """
     Class made for users to login
     """
-    #TODO next not implemented
+    # TODO next not implemented
     form_class = LoginForm
     template_name = 'user/login.html'
 
     def get(self, request):
         if request.user.is_authenticated:
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect(request.user.profile.get_view_url())
         context = {'form': self.form_class()}
         return render(request, self.template_name, context)
 
@@ -42,12 +42,13 @@ class UserLogin(View):
             auth_login(request, user)
             return HttpResponseRedirect('/')
         # else:
-            #context = {'form': self.form_class()}
+            # context = {'form': self.form_class()}
         return render(request, self.template_name, {'form': bound_form})
+
 
 class UserCreate(View):
     form_class = UserForm
-    #this could be simplified with the formset_factory
+    # this could be simplified with the formset_factory
     formset_password = formset_factory(PasswordForm)
     formset_profile = ProfileForm
     # users_list = User.objects.all()
@@ -67,9 +68,10 @@ class UserCreate(View):
                     password = inline_form.cleaned_data
                     new_user.set_password(password)
             new_user.save()
-            return redirect("user:list")
+            return redirect(new_user.profile.get_view_url())
 
         return render(request, self.template_name, {'form': bound_form, 'passform': password_form })
+
 
 class UserUpdatePass(View):
     form_class = ResetPassForm
@@ -86,24 +88,28 @@ class UserUpdatePass(View):
         if bound_form.is_valid():
             user = bound_form.save()
             update_session_auth_hash(request, user)  # Important!
-            #not working because super().form_valid(form) is missing i think
+            # not working because super().form_valid(form) is missing i think
             messages.success(request, 'Your password was successfully updated!')
             return redirect('user:list')
 
         messages.error(request, 'Please correct the error below.')
         return render(request, self.template_name, {'form': bound_form})
 
+
 class UserList(ListView):
     """
         class view for user list
     """
+    # TODO this view should only be allowed to be used for logged in personnel
     model = User
-    template_name = 'user/user_list.html'  # Default: <app_label>/<model_name>_list.html
+    template_name = 'user/user_list.html'
+    # Default: <app_label>/<model_name>_list.html
     # context_object_name = 'users'  # Default: object_list
     paginate_by = 10
     queryset = User.objects.get_queryset().order_by('id')
     #.objects.all()  # Default: Model.objects.all()
     # print(queryset)
+
 
 class UserView(View):
     """
@@ -115,8 +121,6 @@ class UserView(View):
         user_obj = get_object_or_404(User, pk=user_id)
         context = {'user_obj': user_obj}
         return render(request, self.template_name, context)
-
-
 
 
 class UserEdit(View):
