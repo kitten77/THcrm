@@ -79,8 +79,9 @@ class UserUpdatePass(View):
     template_name = 'user/user_update_pass_form.html'
 
     def get(self, request):
-        form = self.form_class(request.user)
-        context = {'form': form }
+        # print(' user ' + request.user.username)
+        form = self.form_class(user=request.user)
+        context = {'form': form, 'user_obj': request.user}
         return render(request, self.template_name, context)
 
     def post(self, request):

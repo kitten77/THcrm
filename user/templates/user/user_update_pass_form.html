@@ -15,7 +15,7 @@
       </div>
       <div class="x_content">
         <div class="col-md-8 center-margin">
-          <form class="form-horizontal form-label-left" id="add_form" method="POST" action="{{ user_obj.get_update_url }}">
+          <form class="form-horizontal form-label-left" id="add_form" method="POST" action="{{ user_obj.profile.get_update_url }}">
             {%csrf_token%}
             <div class="form-group">
               {{ form.as_p }}
