@@ -143,6 +143,7 @@ class UserEdit(View):
         return render(request, self.template_name, context)
 
     def post(self, request, user_id):
+        user_obj = get_object_or_404(self.model, pk=user_id)
         obj = get_object_or_404(self.model, pk=user_id)
         profile_obj = get_object_or_404(self.profile_model, pk=user_id)
         bound_form = self.form_class(request.POST, instance=obj)
@@ -152,8 +153,8 @@ class UserEdit(View):
             profile_form.save()
             return redirect(self.success_url)
         else:
-            context = {'form': bound_form, self.model.__name__.lower(): obj}
-            return render(request, self.template_name,context)
+            context = {'form': bound_form, self.model.__name__.lower(): obj, 'profile': profile_form, 'user_obj': user_obj}
+            return render(request, self.template_name, context)
 
 
 class UserDelete(View):
