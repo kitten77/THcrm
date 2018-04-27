@@ -72,19 +72,19 @@ class TestUserProfileModel(TestCase):
     #     self.assertEqual(200, response.status_code)
     #     return user
 
-    def test_login_user(self):
-        response = self.c.post('/user/login/', {'username': self.username, 'password': self.password}, follow=True)
-        self.assertEqual(200, response.status_code)
-
-    def test_list_users(self):
-        response = self.c.get('/user/list/')
-        template_user_list = 'user/user_list.html'
-        self.assertTemplateUsed(response=response, template_name=template_user_list)
-        self.assertEqual(200, response.status_code)
-
-    def test_create_user_link(self):
-        response = self.c.get('/user/create/')
-        self.assertEqual(200, response.status_code)
+    # def test_login_user(self):
+    #     response = self.c.post('/user/login/', {'username': self.username, 'password': self.password}, follow=True)
+    #     self.assertEqual(200, response.status_code)
+    #
+    # def test_list_users(self):
+    #     response = self.c.get('/user/list/')
+    #     template_user_list = 'user/user_list.html'
+    #     self.assertTemplateUsed(response=response, template_name=template_user_list)
+    #     self.assertEqual(200, response.status_code)
+    #
+    # def test_create_user_link(self):
+    #     response = self.c.get('/user/create/')
+    #     self.assertEqual(200, response.status_code)
 
     # def test_user_name(self):
     #     self.test_create_user()
