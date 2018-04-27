@@ -1,5 +1,5 @@
-#WARNING DO NOT USE IN ANY PRODUCTION!
-#=====================================
+WARNING DO NOT USE IN ANY PRODUCTION!
+=====================================
 
 The Handy - CRM
 ===============
