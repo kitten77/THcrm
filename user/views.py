@@ -78,7 +78,6 @@ class UserUpdatePass(View):
     template_name = 'user/user_update_pass_form.html'
 
     def get(self, request):
-        # print(' user ' + request.user.username)
         form = self.form_class(user=request.user)
         context = {'form': form, 'user_obj': request.user}
         return render(request, self.template_name, context)
@@ -104,12 +103,9 @@ class UserList(ListView):
     # TODO this view should only be allowed to be used for logged in personnel
     model = User
     template_name = 'user/user_list.html'
-    # Default: <app_label>/<model_name>_list.html
-    # context_object_name = 'users'  # Default: object_list
     paginate_by = 10
     queryset = User.objects.get_queryset().order_by('id')
-    #.objects.all()  # Default: Model.objects.all()
-    # print(queryset)
+
 
 
 class UserView(View):
@@ -121,7 +117,6 @@ class UserView(View):
     def get(self, request, user_id="N/A"):
         if user_id == "N/A":
             user = request.user
-            print(user.id)
             user_obj = get_object_or_404(User, pk=user.id)
         else:
             user_obj = get_object_or_404(User, pk=user_id)
