@@ -8,7 +8,6 @@ from django.contrib.auth.models import User
 from django.forms.formsets import formset_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
-from django.urls import reverse_lazy
 from django.views.generic import View, ListView
 
 from .forms import LoginForm, UserForm, PasswordForm, ResetPassForm, ProfileForm
@@ -75,7 +74,7 @@ class UserCreate(View):
 
 class UserUpdatePass(View):
     form_class = ResetPassForm
-    formset_class = formset_factory(PasswordForm)
+    # formset_class = formset_factory(PasswordForm)
     template_name = 'user/user_update_pass_form.html'
 
     def get(self, request):
@@ -86,15 +85,16 @@ class UserUpdatePass(View):
 
     def post(self, request):
         bound_form = self.form_class(request.user, request.POST)
+        user = get_object_or_404(User, pk=request.user.pk)
         if bound_form.is_valid():
             user = bound_form.save()
             update_session_auth_hash(request, user)  # Important!
             # not working because super().form_valid(form) is missing i think
             messages.success(request, 'Your password was successfully updated!')
-            return redirect('user:list')
-
-        messages.error(request, 'Please correct the error below.')
-        return render(request, self.template_name, {'form': bound_form})
+            return redirect('user:me')
+        else:
+            messages.error(request, 'Please correct the error below.')
+            return render(request, self.template_name, {'form': bound_form})
 
 
 class UserList(ListView):
@@ -118,8 +118,14 @@ class UserView(View):
     """
     template_name = 'user/user_view.html'
 
-    def get(self, request, user_id):
-        user_obj = get_object_or_404(User, pk=user_id)
+    def get(self, request, user_id="N/A"):
+        if user_id == "N/A":
+            user = request.user
+            print(user.id)
+            user_obj = get_object_or_404(User, pk=user.id)
+        else:
+            user_obj = get_object_or_404(User, pk=user_id)
+
         context = {'user_obj': user_obj}
         return render(request, self.template_name, context)
 
@@ -132,7 +138,7 @@ class UserEdit(View):
     profile_model = Profile
     form_class = UserForm
     form_profile = ProfileForm
-    success_url = reverse_lazy('user:list')
+    success_url = ''
     template_name = 'user/user_update_form.html'
 
     def get(self, request, user_id):
@@ -151,6 +157,7 @@ class UserEdit(View):
         if bound_form.is_valid() and profile_form.is_valid():
             bound_form.save()
             profile_form.save()
+            self.success_url = user_obj.profile.get_view_url()
             return redirect(self.success_url)
         else:
             context = {'form': bound_form, self.model.__name__.lower(): obj, 'profile': profile_form, 'user_obj': user_obj}

@@ -6,7 +6,7 @@ class TestUserLogin(TestUserSetup):
     def test_get(self):
         self.c.logout()
         response = self.c.get(self.login_url, follow=True)
-        self.assertTemplateUsed(response=response, template_name='user/login.html')
+        self.assertTemplateUsed(response=response, template_name='registration/login.html')
         self.assertEqual(200, response.status_code)
 
     def test_post(self):

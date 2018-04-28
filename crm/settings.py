@@ -1,7 +1,9 @@
 import os
+
 import dj_database_url
-from .log_filters import ManagementFilter
 from django.urls import reverse_lazy
+
+from .log_filters import ManagementFilter
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -21,7 +23,7 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 
 # Application definition
 
-LOGIN_REDIRECT_URL = reverse_lazy('common:home')
+LOGIN_REDIRECT_URL = '/user/me/'
 LOGIN_URL = reverse_lazy('user:login')
 LOGOUT_URL = reverse_lazy('user:logout')
 
@@ -168,8 +170,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
-STATIC_URL = '/static/'
-
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
 
@@ -182,7 +182,7 @@ MEDIA_URL = '/media/'
 #AUTH_USER_MODEL = 'user.User'
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (BASE_DIR + '/static',)
+STATICFILES_DIRS = (BASE_DIR + STATIC_URL,)
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
@@ -195,11 +195,6 @@ COMPRESS_ENABLED = True
 
 COMPRESS_CSS_FILTERS = ['compressor.filters.css_default.CssAbsoluteFilter', 'compressor.filters.cssmin.CSSMinFilter']
 COMPRESS_REBUILD_TIMEOUT = 5400
-
-
-COMPRESS_OUTPUT_DIR = 'CACHE'
-COMPRESS_URL = STATIC_URL
-COMPRESS_ENABLED = True
 
 COMPRESS_PRECOMPILERS = (
     ('text/less', 'lessc {infile} {outfile}'),

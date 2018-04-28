@@ -20,5 +20,4 @@ class TestUserEdit(TestUserSetup):
         update_url = self.user.profile.get_update_url()
         response = self.c.post(update_url, user_update, follow=True)
         self.assertEqual(200, response.status_code)
-        self.assertTemplateUsed(response=response, template_name='user/user_list.html')
-  
+        self.assertTemplateUsed(response=response, template_name='user/user_view.html')
